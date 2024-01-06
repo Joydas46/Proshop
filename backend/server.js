@@ -1,8 +1,12 @@
 // using esmodules
 import express from 'express'
+import dotenv from 'dotenv'
 import products from './data/products.js'
 
-const PORT = 5000
+// configuring the environment variables
+dotenv.config()
+
+const port = process.env.PORT || 5000
 const app = express()
 
 
@@ -19,4 +23,4 @@ app.get('/api/products/:id', (req, res) => {
     res.json(product)
 })
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+app.listen(port, () => console.log(`Server running on port ${port}`))
