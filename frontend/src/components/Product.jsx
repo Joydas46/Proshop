@@ -7,10 +7,12 @@ const Product = ({product}) => {
   return (
     // card tags in react bootstrap
     <Card>
+        {/* Link to the product, which will be triggered on clicking the image */}
         <Link to={`/product/${product._id}`}>
             <Card.Img src={product.image} variant='top' />
         </Link>
         <Card.Body>
+            {/* Link to the product which willbe tiggered on clicking the title */}
             <Link to={`/product/${product._id}`}>
                 <Card.Title as='div' className='product-title'>
                     <strong>{product.name}</strong>
