@@ -5,6 +5,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import productRoutes from './routes/productRoutes.js'
 import connectDB from './config/db.js'
+import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 
 // configuring the environment variables
 dotenv.config()
@@ -24,5 +25,8 @@ app.get('/', (req, res) => {
 // BY doing this the server file looks simple and all the get requests to different routes are handled
 // in a separate js file, which in this case is productRoutes.js
 app.use('/api/products', productRoutes)
+
+app.use(notFound)
+app.use(errorHandler)
     
 app.listen(port, () => console.log(`Server running on port ${port}`))
