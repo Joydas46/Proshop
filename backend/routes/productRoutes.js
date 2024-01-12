@@ -1,6 +1,7 @@
 import express from 'express'
 import { getProducts, getProductById } from '../controllers/productControllers.js'
 
+// Express helps us to create routes using the Router method
 const router = express.Router()
 
 // Calling the getProducts controller function
