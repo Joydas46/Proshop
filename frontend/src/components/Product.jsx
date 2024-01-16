@@ -14,7 +14,7 @@ const Product = ({product}) => {
         <Card.Body>
             {/* Link to the product which willbe tiggered on clicking the title */}
             <Link to={`/product/${product._id}`}>
-                <Card.Title as='div' className='product-title'>
+                <Card.Title as='div' className='product-title card-title'>
                     <strong>{product.name}</strong>
                 </Card.Title>
             </Link>
