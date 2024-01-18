@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { updateCart } from "./utils/cartUtils"
+import { updateCart } from "../utils/cartUtils"
 
 // We want our items in the local stprage,so that even if we leave the site the items will be in the cart.
 // So when we come back the items willbe theer in the cart still.
