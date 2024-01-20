@@ -66,7 +66,7 @@ const ProductScreen = () => {
                                 <Rating value={product.rating} text={`${product.numReviews} reviews`}/>
                             </ListGroup.Item>
                             <ListGroup.Item>
-                                Price: Rs {product.price}
+                                Price: <span>&#8377;</span>{(product.price).toLocaleString('en-IN')}
                             </ListGroup.Item>
                             <ListGroup.Item>
                                 Description: {product.description}
@@ -79,7 +79,7 @@ const ProductScreen = () => {
                                 <ListGroup.Item>
                                     <Row>
                                         <Col>Price:</Col>
-                                        <Col><strong>Rs {product.price}</strong></Col>
+                                        <Col><strong><span>&#8377;</span>{(product.price).toLocaleString('en-IN')}</strong></Col>
                                     </Row>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
@@ -96,6 +96,7 @@ const ProductScreen = () => {
                                             <Col>
                                                 <Form.Control as='select' value={qty} onChange={(e) => setQty(Number(e.target.value))}>
                                                     {
+                                                        // Using the spread operator to create an array of numbers from 1 to the maximum number of items in stock
                                                         [...Array(product.countInStock).keys()].map((x) => (
                                                             <option key={x + 1} value={x + 1}>
                                                                 {x + 1}
