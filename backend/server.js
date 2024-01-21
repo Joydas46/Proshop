@@ -1,7 +1,7 @@
 // This is our main server file for the backend, which will be used by the frontend.
 // In the frontend it is using axios to make the function calls to the route api/products to fetch the data.
 // using esmodules
-import express from 'express'
+import express, { urlencoded } from 'express'
 import dotenv from 'dotenv'
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
@@ -16,6 +16,10 @@ connectDB()
 
 const port = process.env.PORT || 5000
 const app = express()
+
+// Body parser middleware to get the body data
+app.use(express.json())
+app.use(urlencoded({ extended: true }))
 
 // making a get request to the route directory to check if the server is running
 app.get('/', (req, res) => {
