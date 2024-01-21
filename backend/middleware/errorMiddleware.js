@@ -6,11 +6,12 @@ const notFound = (req, res, next) => {
     next(error)
 }
 
-// This willcome into picture if we pass in wrong objectId for any products
+// Override the default error handler from express
 const errorHandler = (err, req, res, next) => {
     let statusCode = res.statusCode === 200 ? 500 : res.statusCode
     let message = err.message
 
+    // This will come into picture if we pass in wrong objectId for any products
     // Check for Mongoose bad ObjectId, where the error is castError and the kind will be ObjectId
     if (err.name === 'CastError' && err.kind === 'ObjectId') {
         message = `Resource not found`
