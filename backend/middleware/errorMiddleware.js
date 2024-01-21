@@ -1,3 +1,4 @@
+// Middleware is nothing but the pieces of code that runs between request and response
 // This is the error function handler for giving wrong routes or wrong requests
 // Example: http://localhost:5000/api/productss
 const notFound = (req, res, next) => {
