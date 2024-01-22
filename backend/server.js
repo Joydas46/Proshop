@@ -7,6 +7,7 @@ import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import connectDB from './config/db.js'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
+import cookieParser from 'cookie-parser'
 
 // configuring the environment variables
 dotenv.config()
@@ -20,6 +21,9 @@ const app = express()
 // Body parser middleware to get the body data
 app.use(express.json())
 app.use(urlencoded({ extended: true }))
+
+// Cookie parser middleware
+app.use(cookieParser())
 
 // making a get request to the route directory to check if the server is running
 app.get('/', (req, res) => {
