@@ -11,7 +11,6 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addToCart: (state, action) => {
-            console.log(action.payload);
             // storing the item which is being added to the cart, this willbe present as part of the payload
             const item = action.payload
             // If the items exist in the cartItems array then store the item im the existItem variable.
