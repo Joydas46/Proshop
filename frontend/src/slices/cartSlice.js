@@ -4,7 +4,8 @@ import { updateCart } from "../utils/cartUtils"
 // We want our items in the local stprage,so that even if we leave the site the items will be in the cart.
 // So when we come back the items willbe theer in the cart still.
 // Therefore here we are schecking the local sotrage first
-const initialState = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : {cartItems: []}
+const initialState = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : 
+{cartItems: [], shippingAddress: {}, paymentMethod: {}}
 
 const cartSlice = createSlice({
     name: "cart",
@@ -27,11 +28,15 @@ const cartSlice = createSlice({
         removeFromCart: (state, action) => {
             state.cartItems = state.cartItems.filter((item) => item._id !== action.payload)
             return updateCart(state)
+        },
+        saveShippingAddress: (state, action) => {
+            state.shippingAddress = action.payload
+            return updateCart(state)
         }
     }
 })
 
 // exporting the actions
-export const { addToCart, removeFromCart } = cartSlice.actions
+export const { addToCart, removeFromCart, saveShippingAddress } = cartSlice.actions
 // exporting the reducer
 export default cartSlice.reducer
