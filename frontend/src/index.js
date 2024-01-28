@@ -19,6 +19,8 @@ import ProductScreen from './screens/ProductScreen';
 import CartScreen from './screens/CartScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import ShippingScreen from './screens/ShippingScreen';
+import PrivateRoute from './components/PrivateRoute';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +30,11 @@ const router = createBrowserRouter(
       <Route path="/cart" element={<CartScreen />} />
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/register" element={<RegisterScreen />} />
+
+      <Route path='' element={<PrivateRoute />}>
+        {/* Creating a private route for the shipping page,so that we can access only if we are logged in */}
+        <Route path="/shipping" element={<ShippingScreen />} />
+      </Route>
     </Route>
   )
 )
