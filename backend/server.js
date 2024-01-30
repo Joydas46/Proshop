@@ -5,6 +5,7 @@ import express, { urlencoded } from 'express'
 import dotenv from 'dotenv'
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
+import orderRoutes from './routes/orderRoutes.js'
 import connectDB from './config/db.js'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import cookieParser from 'cookie-parser'
@@ -38,6 +39,7 @@ app.use('/api/products', productRoutes)
 // BY doing this the server file looks simple and all the get requests to different routes are handled
 // in a separate js file, which in this case is userRoutes.js
 app.use('/api/users', userRoutes)
+app.use('/api/orders', orderRoutes)
 
 app.use(notFound)
 app.use(errorHandler)
