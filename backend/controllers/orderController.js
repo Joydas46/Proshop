@@ -20,9 +20,9 @@ const addOrderItems = asyncHandler(async (req, res) => {
         throw new Error('No order items')
     } else {
         const order = new Order({
-            orderItems: orderItems.map((item)=>({
-                ...item,
-                product: item.product._id,
+            orderItems: orderItems.map((x)=>({
+                ...x,
+                product: x._id,
                 _id: undefined
             })),
             user: req.user._id,
@@ -33,9 +33,10 @@ const addOrderItems = asyncHandler(async (req, res) => {
             taxPrice,
             totalPrice
         })
+
         const createdOrder = await order.save()
         res.status(201).json(createdOrder)
-}
+    }
 })
 
 // @desc    Get logged in user orders
