@@ -13,7 +13,7 @@ const OrderScreen = () => {
     const { data: order, refetch, isLoading, error } = useGetOrderDetailsQuery(orderId)
     const [payOrder, {isLoading: loadingPay}] = usePayOrderMutation()
     const [{isPending}, paypalDispatch] = usePayPalScriptReducer()
-    const [{data: payPal, isLoading: loadingPayPal, isError: errorPayPal}] = useGetPayPalClientIdQuery()
+    const {data: payPal, isLoading: loadingPayPal, isError: errorPayPal} = useGetPayPalClientIdQuery()
     const {userInfo} = useSelector((state) => state.auth)
 
     useEffect(() => {
@@ -22,7 +22,7 @@ const OrderScreen = () => {
                 paypalDispatch({
                     type: 'resetOptions',
                     value: {
-                        'client-id': payPal,
+                        'client-id': payPal.clientId,
                         currency: 'IND',
                     },
                 })
@@ -36,7 +36,7 @@ const OrderScreen = () => {
             }
         }
     }, [errorPayPal, loadingPayPal, payPal, order, paypalDispatch])
-    
+
   return isLoading ? (
     <Loader />
   ) : error ? (
