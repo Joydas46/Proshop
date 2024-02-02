@@ -51,7 +51,7 @@ root.render(
     {/* Wrapping with the Redux provider */}
     <Provider store={store}>
       {/* Wrapping with the PayPalScriptProvider */}
-      <PayPalScriptProvider deferLoading={true}>
+      <PayPalScriptProvider deferLoading={false}>
         {/* Wrapping with the RouterProvider */}
         {/* This is our main app */}
         <RouterProvider router={router} />

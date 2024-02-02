@@ -22,8 +22,8 @@ const OrderScreen = () => {
                 paypalDispatch({
                     type: 'resetOptions',
                     value: {
-                        'client-id': payPal.clientId,
-                        currency: 'IND',
+                        'clientId': payPal.clientId,
+                        currency: 'INR',
                     },
                 })
                 paypalDispatch({ type: 'setLoadingStatus', value: 'pending' })
@@ -36,6 +36,39 @@ const OrderScreen = () => {
             }
         }
     }, [errorPayPal, loadingPayPal, payPal, order, paypalDispatch])
+
+    function onApprove (data, actions) {
+        return actions.order.capture().then(async function(details) {
+            try {
+                await payOrder({ orderId, details })
+                refetch()
+                toast.success('Payment successful')
+            } catch (err) {
+                toast.error(err?.data?.message || err.message)
+            }
+        })
+    }
+    async function onApproveTest () {
+        await payOrder({ orderId, details: {payer: {}} })
+        refetch()
+        toast.success('Payment successful')
+    }   
+    function onError (err) {
+        toast.error(err.message)
+    }
+    function createOrder (data, actions) {
+        return actions.order
+            .create({
+                purchase_units: [
+                    {
+                        amount: { value: order.totalPrice, currency_code: 'INR' },
+                    },
+                ],
+            })
+            .then((orderId) => {
+                return orderId
+            })
+    }
 
   return isLoading ? (
     <Loader />
@@ -77,7 +110,7 @@ const OrderScreen = () => {
                     </p>
                     {order.isPaid ? (
                         <Message variant='success'>
-                            Paid on {order.paiAt}
+                            Paid on {order.paidAt}
                         </Message>
                     ) : (
                         <Message variant='danger'>Not Paid</Message>
@@ -135,9 +168,28 @@ const OrderScreen = () => {
                             <Col><span>&#8377;</span>{order.totalPrice}</Col>
                         </Row>
                     </ListGroup.Item>
-                    {/* Pay Order Placeholder */}
-                    {/* Mark Order as Delivered */}
                 </ListGroup>
+                {!order.isPaid && (
+                    <ListGroup.Item>
+                        {loadingPay&& <Loader />}
+                        {isPending ? <Loader/> : (
+                            <div>
+                                <Button style={{marginBottom: '10px'}} onClick={onApproveTest}>
+                                    Test Pay Order
+                                </Button>
+                                <div>
+                                    <PayPalButtons
+                                        createOrder={createOrder} 
+                                        onApprove={onApprove} 
+                                        onError={onError}
+                                        currency='INR'
+                                    ></PayPalButtons>
+                                </div>
+                            </div>
+                        )}
+                    </ListGroup.Item>
+                )}
+                    {/* Mark Order as Delivered */}
             </Card>    
         </Col>
       </Row>
