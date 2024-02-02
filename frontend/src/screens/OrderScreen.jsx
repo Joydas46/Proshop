@@ -1,7 +1,7 @@
 import React,{useEffect} from 'react'
 import { Row, Col, ListGroup, Image, Button, Card } from 'react-bootstrap'
 import { toast } from 'react-toastify'
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js'
 import { Link, useParams} from 'react-router-dom'
 import Message from '../components/Message'
@@ -14,7 +14,7 @@ const OrderScreen = () => {
     const [payOrder, {isLoading: loadingPay}] = usePayOrderMutation()
     const [{isPending}, paypalDispatch] = usePayPalScriptReducer()
     const {data: payPal, isLoading: loadingPayPal, isError: errorPayPal} = useGetPayPalClientIdQuery()
-    const {userInfo} = useSelector((state) => state.auth)
+    // const {userInfo} = useSelector((state) => state.auth)
 
     useEffect(() => {
         if (!errorPayPal && !loadingPayPal && payPal.clientId) {
