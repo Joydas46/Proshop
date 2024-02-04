@@ -1,11 +1,13 @@
 // This is our main server file for the backend, which will be used by the frontend.
 // In the frontend it is using axios to make the function calls to the route api/products to fetch the data.
 // using esmodules
+import path from 'path'
 import express, { urlencoded } from 'express'
 import dotenv from 'dotenv'
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
+import uploadRoutes from './routes/uploadRoutes.js'
 import connectDB from './config/db.js'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import cookieParser from 'cookie-parser'
@@ -40,10 +42,16 @@ app.use('/api/products', productRoutes)
 // in a separate js file, which in this case is userRoutes.js
 app.use('/api/users', userRoutes)
 app.use('/api/orders', orderRoutes)
+app.use('/api/upload', uploadRoutes)
 
+// configuring the paypal client id
 app.get('/api/config/paypal', (req, res) => {
     res.send({clientId: process.env.PAYPAL_CLIENT_ID})
 })
+
+// making uploads folder static
+const __dirname = path.resolve()
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
 app.use(notFound)
 app.use(errorHandler)
