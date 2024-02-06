@@ -1,5 +1,5 @@
 import express from 'express'
-import { getProducts, getProductById, createProduct, updateProduct } from '../controllers/productController.js'
+import { getProducts, getProductById, createProduct, updateProduct, deleteProduct } from '../controllers/productController.js'
 import { protect, admin} from '../middleware/authMiddleware.js'
 
 // Express helps us to create routes using the Router method
@@ -9,7 +9,7 @@ const router = express.Router()
 router.route('/').get(getProducts).post(protect, admin, createProduct)
 
 // Calling the getProductById controller function
-router.route('/:id').get(getProductById).put(protect, admin, updateProduct)
+router.route('/:id').get(getProductById).put(protect, admin, updateProduct).delete(protect, admin, deleteProduct)
 
 
 export default router
