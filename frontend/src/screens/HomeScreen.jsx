@@ -5,6 +5,8 @@ import Product from '../components/Product'
 import { useGetProductsQuery } from '../slices/productApiSlices'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import Paginate from '../components/Paginate'
+
 // import { useEffect, useState } from 'react'
 // import axios from 'axios'
 
@@ -39,6 +41,7 @@ const HomeScreen = () => {
                   </Col>
               ))}
           </Row>
+          <Paginate pages={data.pages} page={data.page}/>
         </>
       )}
     </>
