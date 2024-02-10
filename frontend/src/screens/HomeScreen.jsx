@@ -1,4 +1,5 @@
 import React from 'react'
+import { useParams } from 'react-router-dom'
 import { Row, Col} from 'react-bootstrap'
 import Product from '../components/Product'
 import { useGetProductsQuery } from '../slices/productApiSlices'
@@ -8,7 +9,8 @@ import Message from '../components/Message'
 // import axios from 'axios'
 
 const HomeScreen = () => {
-  const {data: products, isLoading, error} = useGetProductsQuery()
+  const {pageNumber} = useParams()
+  const {data, isLoading, error} = useGetProductsQuery({pageNumber})
   // const [products, setProducts] = useState([])
 
   // useEffect(() => { 
@@ -31,7 +33,7 @@ const HomeScreen = () => {
           <Row>
               {/* map uses {}, but we can also use other syntax. If we have multiple lines we w
               wrap it in () */}
-              {products.map((product) => (
+              {data.products.map((product) => (
                   <Col key={product._id} sm={12} md={6} lg={4} xl={3} className='my-3'>
                       <Product product={product}/>
                   </Col>
